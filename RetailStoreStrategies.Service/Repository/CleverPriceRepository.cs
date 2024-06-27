@@ -16,10 +16,10 @@ namespace RetailStoreStrategies.Service.Repository
                 switch(item.Trend.ToLower())
                 {
                     case "increasing":
-                        priceModel.UpdatedPrice = item.Price + (item.Price * 0.3);
+                        priceModel.UpdatedPrice = item.Price + (item.Price * 0.1);
                         break;
                     case "decreasing":
-                        priceModel.UpdatedPrice = item.Price - (item.Price * 0.2);
+                        priceModel.UpdatedPrice = item.Price - (item.Price * 0.1);
                         break;
                     default:
                         priceModel.UpdatedPrice = item.Price;

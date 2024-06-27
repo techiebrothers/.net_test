@@ -7,11 +7,18 @@ namespace RetailStoreStrategies.Service.Repository
     {
         public List<RestockPlanModel> GetRestockingPlan(List<SalesDataModel> SalesData)
         {
+            var product = SalesData.GroupBy(x => x.ProductId);
+            List<RestockPlanModel> restockPlanModels = new List<RestockPlanModel>();
+            foreach (var item in product)
+            {
+                restockPlanModels.Add(new RestockPlanModel()
+                {
+                    ProductId = item.Key,
+                    RecommendedQuantity = (SalesData.Where(x => x.ProductId == item.Key).Sum(m => m.QuantitySold))
+                                                / (SalesData.Where(x => x.ProductId == item.Key).Count())
+                });
+            }
             
-            List<RestockPlanModel> restockPlanModels = SalesData.GroupBy(x => x.ProductId).Select(l => new RestockPlanModel { 
-                ProductId = l.First().ProductId,
-                RecommendedQuantity = Convert.ToInt32((l.Sum(sm => sm.QuantitySold)) + Math.Floor(l.Sum(sm => sm.QuantitySold) * 0.5))
-            }).ToList();
             
             return restockPlanModels;
         }

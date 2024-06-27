@@ -28,10 +28,10 @@ namespace RetailStoreStrategies.Controllers
         /// <response code="404">Item not found.</response>
         /// <response code="500">Exception or Internal server error.</response>
         [HttpPost("InventoryMagic")]
-        public IActionResult InventoryMagic()
+        public IActionResult InventoryMagic([FromBody] List<PopularityModel> Data)
         {
-            var inPutData = getData();
-            var outPutData = _inventoryMagicRepository.CreateOptimationModel(inPutData);
+            //var inPutData = JsonSerializer.Deserialize<List<PopularityModel>>(Data, new JsonSerializerOptions { PropertyNameCaseInsensitive = true }); ;
+            var outPutData = _inventoryMagicRepository.CreateOptimationModel(Data);
 
             return Ok(JsonSerializer.Serialize(outPutData));
         }
@@ -44,8 +44,8 @@ namespace RetailStoreStrategies.Controllers
         /// <response code="400">Bad request.</response>
         /// <response code="404">Item not found.</response>
         /// <response code="500">Exception or Internal server error.</response>
-        [HttpPost("UploadFile")]
-        public IActionResult UploadFile(IFormFile file)
+        [HttpPost("InventoryMagicUploadFile")]
+        public IActionResult InventoryMagicUploadFile(IFormFile file)
         {
             var inPutData = getDataFromFile(file);
             var outPutData = _inventoryMagicRepository.CreateOptimationModel(inPutData);

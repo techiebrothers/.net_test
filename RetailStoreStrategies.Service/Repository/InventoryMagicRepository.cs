@@ -13,8 +13,8 @@ namespace RetailStoreStrategies.Service.Repository
             foreach (var popularity in Popularitys)
             {
                 model = new InventoryOptimizationModel();
-                double shellDateFactor = popularity.PopularityScore > 0.9 ? 0.1 : -0.1;
-                model.RecommendedAdjustment = Convert.ToInt32(Math.Floor(popularity.CurrentStock * (shellDateFactor + popularity.PopularityScore)));
+                double shellDateFactor = popularity.ShelfLife > 30 ? 0.1 : -0.1;
+                model.RecommendedAdjustment = Convert.ToInt32(Math.Ceiling(popularity.CurrentStock * (shellDateFactor + popularity.PopularityScore)));
                 model.ProductId = popularity.ProductId;
                 inventoryOptimizationModels.Add(model);
             }

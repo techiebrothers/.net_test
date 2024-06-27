@@ -27,10 +27,10 @@ namespace RetailStoreStrategies.Controllers
         /// <response code="400">Bad request.</response>
         /// <response code="404">Item not found.</response>
         /// <response code="500">Exception or Internal server error.</response>
-        [HttpPost("InventoryMagic")]
-        public IActionResult InventoryMagic()
+        [HttpPost("CleverPriceTrick")]
+        public IActionResult CleverPriceTrick([FromBody] List<PriceDemandTrendModel> inPutData)
         {
-            var inPutData = getData();
+            //var inPutData = getData();
             var outPutData = _cleverPriceRepository.CreateInventoryMagic(inPutData);
 
             return Ok(JsonSerializer.Serialize(outPutData));
@@ -44,8 +44,8 @@ namespace RetailStoreStrategies.Controllers
         /// <response code="400">Bad request.</response>
         /// <response code="404">Item not found.</response>
         /// <response code="500">Exception or Internal server error.</response>
-        [HttpPost("UploadFile")]
-        public IActionResult UploadFile(IFormFile file)
+        [HttpPost("CleverPriceTrickUploadFile")]
+        public IActionResult CleverPriceTrickUploadFile(IFormFile file)
         {
             var inPutData = getDataFromFile(file);
             var outPutData = _cleverPriceRepository.CreateInventoryMagic(inPutData);

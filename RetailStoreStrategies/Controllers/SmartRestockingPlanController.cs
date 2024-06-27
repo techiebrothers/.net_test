@@ -31,9 +31,9 @@ namespace RetailStoreStrategies.Controllers
         /// <response code="404">Item not found.</response>
         /// <response code="500">Exception or Internal server error.</response>
         [HttpPost("RestockingPlan")]
-        public IActionResult RestockingPlan()
+        public IActionResult RestockingPlan([FromBody] List<SalesDataModel> inPutData)
         {
-            var inPutData = getData();
+            //var inPutData = getData();
             var outPutData = _restockPlanRepository.GetRestockingPlan(inPutData);
 
             return Ok(JsonSerializer.Serialize(outPutData));
@@ -47,8 +47,8 @@ namespace RetailStoreStrategies.Controllers
         /// <response code="400">Bad request.</response>
         /// <response code="404">Item not found.</response>
         /// <response code="500">Exception or Internal server error.</response>
-        [HttpPost("UploadFile")]
-        public IActionResult UploadFile(IFormFile file)
+        [HttpPost("RestockingPlanUploadFile")]
+        public IActionResult RestockingPlanUploadFile(IFormFile file)
         {
             var inPutData = getDataFromFile(file);
             var outPutData = _restockPlanRepository.GetRestockingPlan(inPutData);
